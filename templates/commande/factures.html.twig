@@ -1,0 +1,57 @@
+{% extends 'baseC.html.twig' %}
+
+{% block title %}Hello CommandeController!
+{% endblock %}
+
+{% block body %}
+	<style>
+		thead {
+			background-color: green
+		}
+		#cont {
+			position: absolute;
+			height: 70%;
+			width: 100%;
+			left: 8%;
+			overflow-x: hidden;
+		}
+	</style>
+
+	<body>
+		<br/>
+		<div id="cont" class="card border-success container"><br>
+			<div class="card-header">
+				<h5>Additions</h5>
+			</div>
+			<div class="card-body">
+				<table class="table table-hover ">
+					<thead>
+						<tr>
+							<th scope="col">Identifiant</th>
+							<th scope="col">Date</th>
+							<th scope="col">Heure</th>
+							<th scope="col">PT</th>
+							<th scope="col">Table</th>
+							<th scope="col">Emp</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for c in cmd %}
+							<tr class="table-active">
+								<td scope="row">{{c.idCmd}}</td>
+								<td>{{c.dateCmd | date("d/m/Y") }}
+								</td>
+								<td>{{c.dateCmd | date("h:m:s") }}
+								</td>
+								<td>{{c.prixTot}}</td>
+								<td>1
+								</td>
+								<td>{{c.employe.idEmploye}}</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</tbody>
+			</table>
+		</div>
+	</body>
+</div></body>{% endblock %}

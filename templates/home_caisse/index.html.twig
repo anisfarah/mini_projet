@@ -1,0 +1,158 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Home!
+{% endblock %}
+
+{% block body %}
+	<head>
+		<link href="/your-path-to-fontawesome/css/fontawesome.css" rel="stylesheet">
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.0/font/bootstrap-icons.css">
+		<style>
+			#btn1 {
+				width: 250px;
+				height: 150px;
+				font-size: 40px;
+				margin-left: 270px;
+				margin-top: 40px
+			}
+			#bt1 {
+				width: 250px;
+				height: 150px;
+				font-size: 40px;
+				margin-left: 20px;
+				margin-top: 40px
+			}
+			#p1 {
+				font-size: 15px;
+				position: fixed;
+				margin-top: 25px
+			}
+			#i {
+				position: absolute;
+				top: 25%;
+				left: 24.5%
+			}
+			#i2 {
+				position: absolute;
+				top: 25%;
+				left: 42.5%
+			}
+			#i3 {
+				position: absolute;
+				top: 25%;
+				left: 60%
+			}
+			#btn2 {
+				width: 250px;
+				height: 110px;
+				font-size: 30px;
+				margin-left: 270px;
+				margin-top: 40px
+			}
+			#p2 {
+				position: absolute;
+				top: 53%
+			}
+			#p3 {
+				position: absolute;
+				font-size: 15px;
+				margin-left: 100px;
+				top: 53%
+			}
+
+			#btn3 {
+				width: 125px;
+				height: 55px;
+				font-size: 20px;
+				margin-top: -19px;
+				margin-left: 20px;
+			}
+			#pb {
+				font-size: 15px;
+				position: fixed;
+			}
+			#ib {
+				position: absolute;
+				top: 48%;
+				left: 39%
+			}
+			#btn4 {
+				width: 125px;
+				height: 55px;
+				font-size: 20px;
+				margin-top: 108px;
+				margin-left: -130px;
+			}
+			#ib2 {
+				position: absolute;
+				top: 57%;
+				left: 39%
+			}
+
+			#btn5 {
+				width: 125px;
+				height: 55px;
+				font-size: 18px;
+				margin-top: -19px;
+				margin-left: 5px;
+			}
+			#ib3 {
+				position: absolute;
+				top: 48%;
+				left: 47.5%
+			}
+			#ib5 {
+				position: absolute;
+				top: 57%;
+				left: 47.5%
+			}
+			#btb {
+				width: 250px;
+				height: 110px;
+				font-size: 30px;
+				margin-left: 15px;
+				margin-top: 45px
+			}
+		</style>
+	</head>
+	<button type="button" class="btn btn-outline-info" id="btn1">
+		<i class="bi bi-calendar2-event" id="i"></i>
+		<p id="p1">Réservations</p>
+	</button>
+	<a href="{{path('commande')}}">
+		<button type="button" class="btn btn-outline-primary" id="bt1">
+			<i class="bi bi-cart4" id="i2"></i>
+			<p id="p1">Commande</p>
+		</button>
+	</a>
+	<a href="{{path('factures')}}">
+	<button type="button" class="btn btn-outline-success" id="bt1">
+		<i class="bi bi-ticket-perferated" id="i3"></i>
+		<p id="p1"> Factures </p>
+	</button>
+	</a>
+	<button type="button" class="btn btn-light" id="btn2">
+		<p id="p2">{{ "now"|date("h:m") }}</p>
+		<p id="p3">{{ "now"|date("D") }}<br>
+			{{ "now"|date("d/m/Y") }}</p>
+	</p>
+</button>
+<button type="button" class="btn btn-outline-danger" id="btn3">
+	<i class="bi bi-card-list" id="ib"></i>
+	<p id="pb">Menu</p>
+</button>
+<button type="button" class="btn btn-outline-warning" id="btn4">
+	<i class="bi bi-snapchat" id="ib2"></i>
+	<p id="pb">Serveurs</p>
+</button>
+<button type="button" class="btn btn-outline-dark" id="btn5">
+	<i class="bi bi-tools" id="ib3"></i>
+	<p id="pb">Outils</p>
+</button>
+<button type="button" class="btn btn-outline-light" id="btn4">
+	<i class="bi bi-question-diamond" id="ib5"></i>
+	<p id="pb">Aide</p>
+</button>
+<button type="button" class="btn btn-outline-light" style="color:pink; border:1px solid pink" id="btb">
+	<i class="bi bi-boxes"></i>
+	Stock</button>{% endblock %}

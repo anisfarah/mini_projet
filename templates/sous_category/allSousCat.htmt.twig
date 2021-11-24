@@ -1,0 +1,38 @@
+<a href="{{ path('add_sousCat') }}" class="btn w-sm btn-danger remove_item">
+
+	Add SousCategory</a>
+
+<table id="datatable-buttons" class="table table table-hover m-0">
+
+	<tr>
+		<th>Id_sousCategory</th>
+		<th>Name</th>
+		<th>Category</th>
+		<th>actions</th>
+
+	</tr>
+
+	<tr>
+		{% for souscat in allsousCat %}
+
+
+			<td>{{souscat.idSouscat}}</td>
+			<td>{{souscat.nomSouscat}}</td>
+			<td>{{souscat.categorie.nomCategorie}}</td>
+
+			<td>
+				<a href="{{ path('supp_souscategory',{'id':souscat.idSouscat}) }}" class="btn w-sm btn-danger remove_item">
+
+					Delete</a>
+
+				<a href="{{ path('modify_souscategory',{'id':souscat.idSouscat}) }}" class="btn w-sm btn-danger remove_item">
+
+					Modify</a>
+
+
+			</td>
+
+
+		</tr>
+	{% endfor %}
+</tr></table>

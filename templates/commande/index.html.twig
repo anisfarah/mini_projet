@@ -1,0 +1,146 @@
+{% extends 'baseC.html.twig' %}
+
+{% block title %}Hello CommandeController!
+{% endblock %}
+
+{% block body %}
+	<style>
+		.sidenav {
+			height: 83%;
+			width: 250px;
+			position: absolute;
+			z-index: 1;
+			top: 20;
+			background-color: #111;
+			overflow-x: hidden;
+			padding: 5px;
+
+		}
+
+		.sidenav a {
+			padding: 6px 6px 6px 32px;
+			text-decoration: none;
+			font-size: 20px;
+			color: #818181;
+			display: block;
+		}
+
+		.sidenav a:hover {
+			color: #f1f1f1;
+		}
+		.active {
+			color: #0f81c7;
+		}
+		.container {
+			position: absolute;
+			z-index: 1;
+			top: 20%;
+			left: 15%;
+			height: 79%;
+			overflow-x: hidden;
+		}
+		.cont {
+			position: absolute;
+			font-size: 12px;
+			height: 60%;
+			top: 18%;
+			overflow-x: hidden;
+		}
+		.card {
+			position: absolute;
+			z-index: 1;
+			font-size: 13px;
+			top: 20%;
+			height: 79%;
+			right: 5px;
+			overflow-x: hidden;
+		}
+		@media screen and(max-height:150px) {
+			.container {
+				padding-top: 10px;
+			}
+			.sidenav {
+				padding-top: 15px;
+			}
+			.sidenav a {
+				font-size: 18px;
+			}
+		}
+	</style>
+	<body>
+		<div id="myDIV">
+			<h5 class="btn" style="margin-left:10px; margin-top:8px">C1<i class="bi bi-chevron-down"></i>
+			</h5>
+			<h5 class="btn" style="margin-top:8px">C2<i class="bi bi-chevron-down"></i>
+			</h5>
+			<div class="sidenav" style="border:1px solid #0f81c7" id="C1">
+				{% for cat in categories %}
+					<a href="#" style="margin-top:px">
+						{{cat.nomCategorie}}
+					</a>
+
+					{% for souscat in sc %}
+
+						<div>
+							{% if cat.idCategorie == souscat.categorie.idCategorie %}
+
+
+								<a style="margin-left:15px;color:#0f81c7" href="{{ path('find_bySousCategorie',{'nomSC':souscat.nomSouscat,'numTable':numTable} )}}">{{souscat.nomSouscat}}
+								</a>
+
+							{% endif %}
+						</div>
+					{% endfor %}
+
+				{% endfor %}
+
+			</div>
+		</body>
+	</body>
+</div>
+
+<div class="container col-6">
+	{% if produits|length > 0 %}
+
+
+		{% for prod in produits %}
+			<a href="{{ path('cart_add',{'id':prod.idProduit,'numTable':numTable}) }}">
+				<div class="btn btn-outline-primary">
+					<img src="{{prod.image}}" style="width:160px;height:160px"/>
+					<p>{{prod.nomProd}}</p>
+					<p>prix :
+						{{prod.pu}}</p>
+					<p>Remise :
+						{{prod.remise}}</p>
+
+
+				</div>
+			</a>
+
+
+		{% endfor %}
+
+	{% endif %}
+</div>
+{% include 'cart/cart.html.twig' %}</body><script>
+// Add active class to the current button (highlight it)
+var header = document.getElementById("myDIV");
+var c1 = document.getElementById("C1");
+var c2 = document.getElementById("C2");
+
+var btns = header.getElementsByClassName("btn");
+for (var i = 0; i < btns.length; i++) {
+btns[i].addEventListener("click", function () {
+var current = document.getElementsByClassName("active");
+current[0].className = current[0].className.replace(" active", "");
+this.className += " active";
+
+if (c1.style.visibility == "hidden") {
+c2.style.visibility = "hidden";
+c1.style.visibility = "visible";
+} else if (c2.style.visibility == "hidden") {
+c1.style.visibility = "hidden";
+c2.style.visibility = "visible";
+}
+});
+}</script>{% endblock %}

@@ -1,0 +1,45 @@
+<a href="{{ path('add_prod') }}" class="btn w-sm btn-danger remove_item">
+
+	Add Produit</a>
+
+<table id="datatable-buttons" class="table table table-hover m-0">
+
+	<tr>
+		<th>Id_Produit</th>
+		<th>Name prod</th>
+		<th>image</th>
+		<th>Prix Unitaire</th>
+		<th>Remise</th>
+		<th>Sous_category</th>
+
+	</tr>
+
+	<tr>
+		{% for prod in prods %}
+
+
+			<td>{{prod.idProduit}}</td>
+			<td>{{prod.nomProd}}</td>
+			<td>{{prod.image}}</td>
+			<td>{{prod.pu}}</td>
+			<td>{{prod.remise}}</td>
+
+			<td>{{prod.sousCategorie.nomSouscat}}</td>
+
+			<td>
+				<a href="{{ path('supp_produit',{'id':prod.idProduit}) }}" class="btn w-sm btn-danger remove_item">
+
+					Delete</a>
+
+				<a href="{{ path('modify_produit',{'id':prod.idProduit}) }}" class="btn w-sm btn-danger remove_item">
+
+					Modify</a>
+
+
+			</td>
+
+		</tr>
+
+	{% endfor %}
+
+</table>

@@ -1,0 +1,25 @@
+<form method="post" action="{{ path('Postadd_prod') }}">
+
+
+	<div>
+		<label>name_prod</label>
+		<input type="text" name="sousCat_name" placeholder="Description">
+		<label>price</label>
+        <input type="number" name="prod_px" >
+        <label>remise</label>
+        <input type="number" name="prod_remise" >
+
+
+		<select name="lissouscat">
+			{% for souscat in allsousCat %}
+				<option value="{{souscat.idSouscat}}">{{souscat.nomSouscat}}</option>
+			{% endfor %}
+		</select>
+
+	</div>
+
+
+	<button type="submit" class="btn btn-info waves-effect w-md waves-light m-b-20">Add</button>
+
+
+</form>

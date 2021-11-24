@@ -1,0 +1,41 @@
+{% extends 'baseC.html.twig' %}
+{% block title %}Hello CommandeController!
+{% endblock %}
+
+{% block body %}
+<style>
+#btn{width:25%;
+	margin-top:2%;
+	height:75%;
+	margin-right:10%;
+	font-size:30px;
+}
+.container{
+	margin-left:10%;
+}
+</style>
+	<center>
+
+<div class="container">
+		{% for table in tables %}
+				{% if table.disponibilite == "1" %}
+				<a href="{{ path('ProduitBytable',{'numTable':table.numTable}) }}"> 
+					<button id="btn" type="button" class="btn btn-outline-info"  >
+					<i class="bi bi-layout-wtf"></i>
+							{{table.numtable}}
+					</button>
+					</a>
+				{% else %}
+				<a href="{{ path('ProduitBytable',{'numTable':table.numTable}) }}"> 
+					<button id="btn" type="button" class="btn btn-outline-danger"  >
+					<i class="bi bi-layout-wtf"></i>
+							{{table.numtable}}
+					</button>
+					</a>
+			{% endif %}
+
+		{% endfor %}
+</div>
+	</center>
+
+{% endblock %}

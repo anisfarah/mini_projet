@@ -1,0 +1,23 @@
+<form method="post" action="{{ path('Postedit_souscategory',{'id':id}) }}">
+
+
+	<div>
+		<label>name_souscategorie</label>
+		<input type="text" name="souscat_name" value={{nomSousCat}} placeholder="Description">
+		<label>Categorie</label>
+		<select name="id_cat">
+			{% for cat in allCat %}
+				{% if cat.idCategorie == category.idCategorie %}
+					<option value="{{cat.idCategorie}}" selected>{{cat.nomCategorie}}</option>
+				{% else %}
+					<option value="{{cat.idCategorie}}">{{cat.nomCategorie}}</option>
+				{% endif %}
+			{% endfor %}
+		</select>
+	</div>
+
+
+	<button type="submit" class="btn btn-info waves-effect w-md waves-light m-b-20">Modify</button>
+
+
+</form>

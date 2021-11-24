@@ -1,0 +1,19 @@
+<form method="post" action="{{ path('Postadd_Souscat') }}">
+
+
+	<div>
+		<label>name_souscategorie</label>
+		<input type="text" name="sousCat_name" placeholder="Description">
+		<label>Categorie</label>
+		<select name="liscat">
+			{% for cat in allCat %}
+				<option value="{{cat.idCategorie}}">{{cat.nomCategorie}}</option>
+			{% endfor %}
+		</select>
+	</div>
+
+
+	<button type="submit" class="btn btn-info waves-effect w-md waves-light m-b-20">Add</button>
+
+
+</form>

@@ -1,0 +1,136 @@
+<style>
+	.sidenav {
+		height: 70%;
+		width: 160px;
+		position: absolute;
+		z-index: 1;
+		top: 20;
+		left: 0;
+		background-color: #111;
+		overflow-x: hidden;
+		padding-top: 5px;
+	}
+
+	.sidenav a {
+		padding: 6px 6px 6px 32px;
+		text-decoration: none;
+		font-size: 20px;
+		color: #818181;
+		display: block;
+	}
+
+	.sidenav a:hover {
+		color: #f1f1f1;
+	}
+	.active {
+		color: #0f81c7;
+	}
+	.container {
+		position: absolute;
+		z-index: 1;
+		top: 20%;
+		left: 15%;
+		height: 79%;
+		overflow-x: hidden;
+	}
+	.cont {
+		position: absolute;
+		font-size: 12px;
+		height: 60%;
+		top: 18%;		
+	}
+	.card {
+		position: absolute;
+		z-index: 1;
+		font-size: 13px;
+		top: 20%;
+		height: 79%;
+		right: 5px;
+		overflow-x: hidden;
+	}
+	@media screen and(max-height: 50px) {
+		.container {
+			padding-top: 10px;
+		}
+		.sidenav {
+			padding-top: 15px;
+		}
+		.sidenav a {
+			font-size: 18px;
+		}
+	}
+</style>
+
+<div class="card border-primary mb-3" style="width:27rem;">
+	<div class="card-header">Addition</div>
+		<div class="card-body">
+			<h5 class="card-title">Table n°
+				{{numTable}}</h5>
+			<div class="cont">
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th scope="col">Produit</th>
+							<th scope="col">Qté</th>
+							<th scope="col">PU</th>
+							<th scope="col">PT</th>
+							<th scope="col">Remise</th>
+							<th scope="col"></th>
+						</tr>
+					</thead>
+						{% if dataPanier|length > 0 %}
+							{% for element in dataPanier %}
+							<tbody>
+								<tr class="table-active">
+									<th scope="row">{{ element.produit.nomProd }}</th>
+									<td>{{ element.quantite }}</td>
+									<td>{{ element.produit.pu }}
+										TND</td>
+									<td>{{ element.quantite * element.produit.pu }}
+										TND</td>
+									<td>{{ element.produit.remise }}</td>
+									<td style="font-size:18px">
+										<a href="{{path("cart_add", {id: element.produit.idProduit,'numTable':numTable})}}">
+											<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle-fill" viewbox="0 0 16 16">
+												<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
+											</svg>
+
+										</a>
+										<a href="{{path("cart_remove", {'numTable':numTable,id: element.produit.idProduit})}}">
+											<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-circle-fill" viewbox="0 0 16 16">
+												<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7z"/>
+											</svg>
+										</a>
+										<a href="{{path("cart_delete", {id: element.produit.idProduit,'numTable':numTable})}}">
+											<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewbox="0 0 16 16">
+												<path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+											</svg>
+										</a>
+									</td>
+								</tr>
+							</tbody>
+							{% endfor %}
+						{% else %}
+							<tr>
+								<td colspan="5" class="text-center">Votre panier est vide</td>
+							</tr>
+						{% endif %}
+				</table>	
+		    </div>
+	    </div>
+			<div style="margin-left:120px;margin-bottom:75px;">
+				<h5 style="margin-bottom:20px;margin-left:18px" class="text-primary">Total:
+					{{ total }}
+					TND</h5>
+					
+				<form method="post" action="{{ path('cart_delete_all',{'numTable':numTable}) }}">
+
+					<button type="button" class="btn btn-outline-primary">Annulation</button>
+					<input name="tot" type="number" value="{{total}}" hidden>
+				<a href="{{path("cmd_confirmer",{'numTable':numTable})}}" style="width:85px" class="btn btn-outline-primary">
+					Passer
+
+				</a>
+				</form>
+			</div>
+</div>

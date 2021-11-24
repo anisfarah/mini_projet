@@ -1,0 +1,31 @@
+<form method="post" action="{{ path('Postedit_produit',{'id':id}) }}">
+
+
+	<div>
+		<label>name_prod</label>
+		<input type="text" name="prod_name" value={{produit.nomProd}} placeholder="Description">
+		<label>price</label>
+		<input type="number" name="prod_px" value={{produit.pu}}>
+		<label>remise</label>
+		<input type="number" name="prod_remise" value={{produit.remise}}>
+
+
+		<select name="id_souscat">
+			{% for souscat in allsousCat %}
+
+				{% if souscat.idSouscat == souscategory.idSouscat %}
+					<option value="{{souscat.idSouscat}}" selected>{{souscat.nomSouscat}}</option>
+				{% else %}
+					<option value="{{souscat.idSouscat}}">{{souscat.nomSouscat}}</option>
+				{% endif %}
+
+			{% endfor %}
+		</select>
+
+	</div>
+
+
+	<button type="submit" class="btn btn-info waves-effect w-md waves-light m-b-20">Modify Produit</button>
+
+
+</form>

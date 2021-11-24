@@ -1,0 +1,52 @@
+<div class="wrapper">
+	{% for label,messages in app.flashes %}
+		{% for message in messages %}
+			<div class="alert alert-{{label}}" role="alert">
+				{{ message}}
+
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+
+			</div>
+		</div>
+	{% endfor %}
+{% endfor %}
+
+
+<a href="{{ path('add_category') }}" class="btn w-sm btn-danger remove_item">
+
+	Add Cateory</a>
+
+<table id="datatable-buttons" class="table table table-hover m-0">
+
+	<tr>
+		<th>Id_Category</th>
+		<th>Name</th>
+		<th>action</th>
+
+	</tr>
+
+	<tr>
+		{% for cat in allCat %}
+
+
+			<td>{{cat.idCategorie}}</td>
+			<td>{{cat.nomCategorie}}</td>
+			<td>
+				<a href="{{ path('supp_category',{'id':cat.idCategorie}) }}" class="btn w-sm btn-danger remove_item">
+
+					Delete</a>
+
+				<a href="{{ path('modify_category',{'id':cat.idCategorie}) }}" class="btn w-sm btn-danger remove_item">
+
+					Modify</a>
+
+
+			</td>
+
+		</tr>
+
+	{% endfor %}
+
+</table>
