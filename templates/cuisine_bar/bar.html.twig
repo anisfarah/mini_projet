@@ -1,11 +1,43 @@
 {% extends 'baseC.html.twig' %}
+
+
 {% block body %}
+	<head>
+		{% block head %}
+			<title>
+				{% block title %}
+					Cuisine
+				{% endblock %}
+
+			</title>
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+			<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+
+		{% endblock %}
+	</head>
+
+
+	<div class="wrapper">
+		{% for flashMessage in app.session.flashbag.get('noticebar') %}
+			<div class="alert alert-info" role="noticebar">
+
+				{{ flashMessage }}
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+
+
+		{% endfor %}
+	</div>
+
 	<div class="card border-primary mb-3" style="width:27rem;">
 		<div class="card-header">Bar</div>
 		<div class="card-body">
 
 			<div class="cont">
-				<table class="table table-hover"> 
+				<table class="table table-hover">
 					<thead>
 						<tr>
 							<th scope="col">Produit</th>

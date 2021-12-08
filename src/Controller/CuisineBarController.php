@@ -52,6 +52,9 @@ class CuisineBarController extends AbstractController
                 }
             }
         }
+        
+
+
         return $this->render('cuisine_bar/cuisine.html.twig', [
             'prods'=>$prods
         ]);
@@ -88,6 +91,20 @@ class CuisineBarController extends AbstractController
         }
         return $this->render('cuisine_bar/bar.html.twig', [
             'prods'=>$prods
+        ]);
+    }
+
+    /**
+     * @Route("/stock", name="stock")
+     */
+    public function Stock(SessionInterface $session): Response
+    {
+        $produits = $this->getDoctrine()->getRepository('App:Produit')->findAll();
+
+
+        return $this->render('cuisine_bar/stock.html.twig', [
+            'produits' => $produits
+           
         ]);
     }
 

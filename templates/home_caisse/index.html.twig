@@ -51,7 +51,7 @@
 			}
 			#p2 {
 				position: absolute;
-				top: 53%
+				top: 53%;
 			}
 			#p3 {
 				position: absolute;
@@ -115,6 +115,41 @@
 			}
 		</style>
 	</head>
+	{% if app.user == null  %}
+		{# <a href="{{path('app_login')}}">
+
+			<button type="button" class="btn btn-outline-info" id="btn1">
+				<i class="bi bi-calendar2-event" id="i"></i>
+				<p id="p1">Login</p>
+			</button>
+		</a> #}
+
+
+		<button type="button" class="btn btn-light"  id="btn1">
+			<p id="p1" style="font-size:19px;margin-top:22px">{{ date('now')|format_datetime('none', 'short', locale='en')  }}</p>
+			<p id="p1" style="margin-left:125px;margin-top:22px">{{ "now"|date("D") }}<br>
+				{{ "now"|date("d/m/Y") }}</p>
+		</p>
+	</button>
+		<a href="{{path('cuisine')}}">
+			<button type="button" class="btn btn-outline-primary" id="bt1">
+				<i class="bi bi-cart4" id="i2"></i>
+				<p id="p1">Cuisine</p>
+			</button>
+		</a>
+		<a href="{{path('bar')}}">
+			<button type="button" class="btn btn-outline-success" id="bt1">
+				<i class="bi bi-ticket-perferated" id="i3"></i>
+				<p id="p1">
+					Bar
+				</p>
+			</button>
+		</a>
+		
+
+
+{% else %}
+
 	<button type="button" class="btn btn-outline-info" id="btn1">
 		<i class="bi bi-calendar2-event" id="i"></i>
 		<p id="p1">Réservations</p>
@@ -126,13 +161,15 @@
 		</button>
 	</a>
 	<a href="{{path('factures')}}">
-	<button type="button" class="btn btn-outline-success" id="bt1">
-		<i class="bi bi-ticket-perferated" id="i3"></i>
-		<p id="p1"> Factures </p>
-	</button>
+		<button type="button" class="btn btn-outline-success" id="bt1">
+			<i class="bi bi-ticket-perferated" id="i3"></i>
+			<p id="p1">
+				Factures
+			</p>
+		</button>
 	</a>
 	<button type="button" class="btn btn-light" id="btn2">
-		<p id="p2">{{ "now"|date("h:m") }}</p>
+		<p id="p2" style="font-size:20px">{{ date('now')|format_datetime('none', 'short', locale='en')  }}</p>
 		<p id="p3">{{ "now"|date("D") }}<br>
 			{{ "now"|date("d/m/Y") }}</p>
 	</p>
@@ -149,10 +186,38 @@
 	<i class="bi bi-tools" id="ib3"></i>
 	<p id="pb">Outils</p>
 </button>
-<button type="button" class="btn btn-outline-light" id="btn4">
+
+
+
+
+
+{% if  app.user.granted("ROLE_ADMIN") %}
+
+		<button type="button" class="btn btn-outline-light" id="btn4">
 	<i class="bi bi-question-diamond" id="ib5"></i>
-	<p id="pb">Aide</p>
+	<p id="pb">stock</p>
 </button>
-<button type="button" class="btn btn-outline-light" style="color:pink; border:1px solid pink" id="btb">
-	<i class="bi bi-boxes"></i>
-	Stock</button>{% endblock %}
+
+<a href="{{path('gerant')}}">
+	<button type="button" class="btn btn-outline-light" style="color:pink; border:1px solid pink" id="btb">
+		<i class="bi bi-boxes"></i>
+		Gerant</button>
+</a>
+	
+{% else %}
+
+	<button type="button" class="btn btn-outline-light" id="btn4">
+	<i class="bi bi-question-diamond" id="ib5"></i>
+	<p id="pb">aide</p>
+</button>
+
+<a >
+	<button type="button" class="btn btn-outline-light" style="color:pink; border:1px solid pink" id="btb">
+		<i class="bi bi-boxes"></i>
+		Stock</button>
+		</a>
+	
+
+{% endif %}
+{% endif %}
+{% endblock %}

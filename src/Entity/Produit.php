@@ -33,7 +33,7 @@ class Produit
     /**
      * @var string
      *
-     * @ORM\Column(name="image", type="string", length=80, nullable=false)
+     * @ORM\Column(name="image", type="string", length=300, nullable=false)
      */
     private $image;
 

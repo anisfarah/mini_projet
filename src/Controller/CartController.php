@@ -3,12 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\CommandeAnnule;
+use App\Entity\Categorie;
 use App\Entity\Produit;
 use App\Entity\SousCategorie;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
 
 
@@ -18,9 +20,9 @@ class CartController extends AbstractController
     /**
      * @Route("/commande/{numTable}/{nomSC}", name="index")
      */
-    public function index(SessionInterface $session, $nomSC,$numTable)
+    public function index(SessionInterface $session, $nomSC, $numTable)
     {
-        $panier = $session->get($numTable, []); 
+        $panier = $session->get($numTable, []);
         $categories = $this->getDoctrine()->getRepository('App:Categorie')->findAll();
         $sc = $this->getDoctrine()->getRepository('App:SousCategorie')->findAll();
         $sousCategorie = $this->getDoctrine()->getRepository(SousCategorie::class)->findOneBy(['nomSouscat' => $nomSC]);
@@ -43,7 +45,7 @@ class CartController extends AbstractController
 
         return $this->render('commande/index.html.twig', [
             'dataPanier' => $dataPanier, 'total' => $total,
-            'categories' => $categories, 'sc' => $sc, 'produits' => $produits,'numTable'=>$numTable
+            'categories' => $categories, 'sc' => $sc, 'produits' => $produits, 'numTable' => $numTable
         ]);
     }
 
@@ -55,8 +57,13 @@ class CartController extends AbstractController
     {
 
         // On récupère le panier actuel
-        $panier = $session->get($numTable, []); 
-        $tables = $this->getDoctrine()->getRepository('App:Tables')->findAll();
+        $panier = $session->get($numTable, []);
+        $table = $this->getDoctrine()->getRepository('App:Tables')->find($numTable);
+
+        $em = $this->getDoctrine()->getManager();
+        $table->setDisponibilite(0);
+        $em->persist($table);
+        $em->flush();
 
 
         if (!empty($panier[$id])) {
@@ -69,6 +76,25 @@ class CartController extends AbstractController
         $session->set($numTable, $panier);
 
 
+        $sessionCuisine = new Session();
+        $sessionBar = new Session();
+        $cat = $this->getDoctrine()->getRepository(Categorie::class)->findBy(['nomCategorie' => ["cuisine", "pizza"]]);
+
+        $souscategorie = $this->getDoctrine()->getRepository(SousCategorie::class)->findby(["categorie" => [
+            $cat[0]->getIdCategorie(),
+            $cat[1]->getIdCategorie()
+        ]]);
+        $produit = $this->getDoctrine()->getRepository('App:Produit')->find($id);
+
+        $scbyproduct = $this->getDoctrine()->getRepository(SousCategorie::class)->find(($produit->getSousCategorie())->getIdSouscat());
+
+        if (in_array($scbyproduct, $souscategorie)) {
+            $sessionCuisine->getFlashBag()->add('notice', $produit->getNomProd() . ' a été ajouté');
+        } else {
+            $sessionBar->getFlashBag()->add('noticebar', $produit->getNomProd() . ' a été ajouté');
+        }
+
+        //sessionbar
         $referer = $request->headers->get('referer');
         return new RedirectResponse($referer);
     }
@@ -76,11 +102,13 @@ class CartController extends AbstractController
     /**
      * @Route("/remove/{numTable}/{id}", name="cart_remove")
      */
-    public function remove(Produit $product, Request $request, SessionInterface $session,$numTable)
+    public function remove(Produit $product, Request $request, SessionInterface $session, $numTable)
     {
         // On récupère le panier actuel
-        $panier = $session->get($numTable, []); 
+        $panier = $session->get($numTable, []);
         $id = $product->getIdProduit();
+        $table = $this->getDoctrine()->getRepository('App:Tables')->find($numTable);
+
 
         if (!empty($panier[$id])) {
             if ($panier[$id] > 1) {
@@ -88,6 +116,12 @@ class CartController extends AbstractController
             } else {
                 unset($panier[$id]);
             }
+        }
+        if (count($panier) == 0) {
+            $em = $this->getDoctrine()->getManager();
+            $table->setDisponibilite(1);
+            $em->persist($table);
+            $em->flush();
         }
 
         // On sauvegarde dans la session
@@ -100,15 +134,26 @@ class CartController extends AbstractController
     /**
      * @Route("/delete/{numTable}/{id}", name="cart_delete")
      */
-    public function delete(Produit $product, Request $request, SessionInterface $session,$numTable)
+    public function delete(Produit $product, Request $request, SessionInterface $session, $numTable)
     {
         // On récupère le panier actuel
-        $panier = $session->get($numTable, []); 
+        $panier = $session->get($numTable, []);
         $id = $product->getIdProduit();
+        $table = $this->getDoctrine()->getRepository('App:Tables')->find($numTable);
+
 
         if (!empty($panier[$id])) {
             unset($panier[$id]);
         }
+
+
+        $em = $this->getDoctrine()->getManager();
+        $table->setDisponibilite(1);
+        $em->persist($table);
+        $em->flush();
+
+
+
 
         // On sauvegarde dans la session
         $session->set($numTable, $panier);
@@ -120,17 +165,21 @@ class CartController extends AbstractController
     /**
      * @Route("/delete/{numTable}", name="cart_delete_all")
      */
-    public function deleteAll(SessionInterface $session, Request $request,$numTable)
+    public function deleteAll(SessionInterface $session, Request $request, $numTable)
     {
 
         $date = new \DateTime('@' . strtotime('now'));
+        $table = $this->getDoctrine()->getRepository('App:Tables')->find($numTable);
+
 
 
         $em = $this->getDoctrine()->getManager();
         $commandeAnnule = new CommandeAnnule();
         $commandeAnnule->setDateAnnulation($date);
         $commandeAnnule->setPrixTot((float) $request->get('tot'));
+        $table->setDisponibilite(1);
         $em->persist($commandeAnnule);
+        $em->persist($table);
         $em->flush();
         $session->remove($numTable);
 

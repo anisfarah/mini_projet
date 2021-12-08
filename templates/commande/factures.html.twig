@@ -41,12 +41,12 @@
 								<td scope="row">{{c.idCmd}}</td>
 								<td>{{c.dateCmd | date("d/m/Y") }}
 								</td>
-								<td>{{c.dateCmd | date("h:m:s") }}
+								<td>{{c.dateCmd | format_datetime('none', 'short', locale='en') }}
 								</td>
 								<td>{{c.prixTot}}</td>
-								<td>1
+								<td>{{c.numTable.numTable}}
 								</td>
-								<td>{{c.employe.idEmploye}}</td>
+								<td>{{c.employe.id}}</td>
 							</tr>
 						{% endfor %}
 					</tbody>

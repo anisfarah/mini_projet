@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<form method="post" style="width:50%;margin:auto;margin-top:50px" action="{{ path('edit_emp', {'id': emp.id}) }}">
+		<h1 class="h3 mb-3 font-weight-normal">Edit employe</h1>
+		<label for="inputUsername" >Username</label>
+		<input type="text" value="{{emp.username}}" name="username" id="inputUsername" class="form-control" autocomplete="username" required autofocus>
+		<label for="inputPassword">Password</label>
+		<input type="password" name="password"  id="inputPassword" class="form-control" autocomplete="current-password" required>
+		<label for="inputroles">Roles</label>
+
+		<select class="form-select" name="roles">
+			{% if emp.roles == ["ROLES_SERVEUR"] %}
+				<option value="ROLES_SERVEUR" selected>Serveur
+				</option>
+				<option value="ROLES_CAISSIER">Caissier</option>
+
+			{% else %}
+				<option value="ROLES_SERVEUR">Serveur
+				</option>
+				<option value="ROLES_CAISSIER" selected>Caissier</option>
+			{% endif %}
+		</select>
+		<br>
+
+		<button class="btn btn-lg btn-primary" type="submit">
+			Modifier
+		</button>
+	</form>
+{% endblock %}

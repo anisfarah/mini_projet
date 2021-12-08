@@ -1,39 +1,64 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Employe index{% endblock %}
+{% block title %}Employe
+{% endblock %}
 
 {% block body %}
-    <h1>Employe index</h1>
+	<div class="container">
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Username</th>
-                <th>Roles</th>
-                <th>Password</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for employe in employes %}
-            <tr>
-                <td>{{ employe.id }}</td>
-                <td>{{ employe.username }}</td>
-                <td>{{ employe.roles ? employe.roles|json_encode : '' }}</td>
-                <td>{{ employe.password }}</td>
-                <td>
-                    <a href="{{ path('employe_show', {'id': employe.id}) }}">show</a>
-                    <a href="{{ path('employe_edit', {'id': employe.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="5">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
 
-    <a href="{{ path('employe_new') }}">Create new</a>
-{% endblock %}
+		<h3>Employe
+		</h3>
+
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Username</th>
+					<th>Roles</th>
+					<th>actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for employe in employes %}
+					<tr>
+						<td>{{ employe.id }}</td>
+						<td>{{ employe.username }}</td>
+						{% for role in employe.roles  %}
+							<td>
+								{% if role == "ROLE_SERVEUR" %}
+
+									serveur
+
+								{% elseif role == "ROLE_CAISSIER" %}
+									caissier
+								{% else %}
+									admin
+
+								{% endif %}
+							</td>
+						{% endfor %}
+
+						{# <td>{{ employe.roles ? employe.roles|json_encode : '' }}</td> #}
+
+
+						<td>
+							<a href="{{ path('remove_emp', {'id': employe.id}) }}" class="btn btn-outline-primary">Delete</a>
+							<a href="{{ path('page_edit', {'id': employe.id}) }}" class="btn btn-outline-primary">edit</a>
+							{% for role in employe.roles  %}
+								{% if role == "ROLE_CAISSIER" %}
+
+									<a href="{{ path('employe_show', {'id': employe.id}) }}" class="btn btn-outline-primary">show</a>
+								{% endif %}
+							{% endfor %}
+						</td>
+					</tr>
+				</td>
+			</tbody>
+		</tr>
+	{% else %}
+		<tr>
+			<td colspan="5">no records found</td>
+		</tr>
+	{% endfor %}
+</tbody></table><a href="{{ path('emp') }}" class="btn btn-outline-primary">Create new</a></div>{% endblock %}

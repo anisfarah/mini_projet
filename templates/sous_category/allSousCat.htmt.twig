@@ -1,8 +1,14 @@
-<a href="{{ path('add_sousCat') }}" class="btn w-sm btn-danger remove_item">
+{% extends 'base.html.twig' %}
+{% block body %}
+
+
+
+<div class="container">
+<a href="{{ path('add_sousCat') }}"  class="btn btn-outline-warning" style="margin-top:30px">
 
 	Add SousCategory</a>
 
-<table id="datatable-buttons" class="table table table-hover m-0">
+<table id="datatable-buttons" class="table table table-hover m-0" >
 
 	<tr>
 		<th>Id_sousCategory</th>
@@ -21,11 +27,11 @@
 			<td>{{souscat.categorie.nomCategorie}}</td>
 
 			<td>
-				<a href="{{ path('supp_souscategory',{'id':souscat.idSouscat}) }}" class="btn w-sm btn-danger remove_item">
+				<a href="{{ path('supp_souscategory',{'id':souscat.idSouscat}) }}" class="btn btn-outline-warning">
 
 					Delete</a>
 
-				<a href="{{ path('modify_souscategory',{'id':souscat.idSouscat}) }}" class="btn w-sm btn-danger remove_item">
+				<a href="{{ path('modify_souscategory',{'id':souscat.idSouscat}) }}"  class="btn btn-outline-warning">
 
 					Modify</a>
 
@@ -36,3 +42,6 @@
 		</tr>
 	{% endfor %}
 </tr></table>
+</div>
+{% endblock %}
+

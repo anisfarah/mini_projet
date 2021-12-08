@@ -48,7 +48,7 @@ class ProduitController extends AbstractController
         $produit=new Produit();
          
         $produit->setnomProd($request->get('sousCat_name'));
-        $produit->setImage("img");
+        $produit->setImage($request->get('myfile')); 
         $produit->setPu($request->get('prod_px'));
         $produit->setRemise($request->get('prod_remise'));
        
@@ -94,7 +94,7 @@ class ProduitController extends AbstractController
         
         $em=$this->getDoctrine()->getManager();
         $produit->setNomProd($request->get('prod_name'));
-        $produit->setImage("");
+        $produit->setImage($request->get('myfile'));
         $produit->setPu($request->get('prod_px'));
         $produit->setRemise($request->get('prod_remise'));
         $produit->setSousCategorie($souscategorie);

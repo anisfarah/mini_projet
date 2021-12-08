@@ -1,4 +1,9 @@
-<a href="{{ path('add_prod') }}" class="btn w-sm btn-danger remove_item">
+{% extends 'base.html.twig' %}
+{% block body %}
+
+
+<div class="container">
+	<a href="{{ path('add_prod') }}" class="btn btn-outline-secondary" style="margin-top:30px">
 
 	Add Produit</a>
 
@@ -11,6 +16,8 @@
 		<th>Prix Unitaire</th>
 		<th>Remise</th>
 		<th>Sous_category</th>
+	     <th>Actions</th>
+
 
 	</tr>
 
@@ -20,18 +27,18 @@
 
 			<td>{{prod.idProduit}}</td>
 			<td>{{prod.nomProd}}</td>
-			<td>{{prod.image}}</td>
+			<td>  <img src="{{prod.image}}" style="width:50px;height:50px" > </td>
 			<td>{{prod.pu}}</td>
 			<td>{{prod.remise}}</td>
 
 			<td>{{prod.sousCategorie.nomSouscat}}</td>
 
 			<td>
-				<a href="{{ path('supp_produit',{'id':prod.idProduit}) }}" class="btn w-sm btn-danger remove_item">
+				<a href="{{ path('supp_produit',{'id':prod.idProduit}) }}" class="btn btn-outline-secondary">
 
 					Delete</a>
 
-				<a href="{{ path('modify_produit',{'id':prod.idProduit}) }}" class="btn w-sm btn-danger remove_item">
+				<a href="{{ path('modify_produit',{'id':prod.idProduit}) }}" class="btn btn-outline-secondary">
 
 					Modify</a>
 
@@ -43,3 +50,5 @@
 	{% endfor %}
 
 </table>
+</div>
+{% endblock %}

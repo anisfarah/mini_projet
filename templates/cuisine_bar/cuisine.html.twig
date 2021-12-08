@@ -1,5 +1,39 @@
 {% extends 'baseC.html.twig' %}
+
+
 {% block body %}
+	<head>
+		{% block head %}
+			<title>
+				{% block title %}
+					Cuisine
+				{% endblock %}
+
+			</title>
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+			<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+		{% endblock %}
+	</head>
+
+
+	<div class="wrapper">
+		{% for flashMessage in app.session.flashbag.get('notice') %}
+			<div class="alert alert-success alert-dismissible fade show" role="alert">
+
+				{{ flashMessage }}
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+
+		{% endfor %}
+	</div>
+
+
+
+
+
+
 	<div class="card border-primary mb-3" style="width:27rem;">
 		<div class="card-header">Cuisine</div>
 		<div class="card-body">
@@ -15,7 +49,7 @@
 					{% if prods|length > 0 %}
 						{% for element in prods %}
 							<tbody>
-								<tr class="table-active" id="tab"  >
+								<tr class="table-active" id="tab">
 									<th scope="row">{{ element.produit.nomProd }}</th>
 									<td>{{ element.quantite }}</td>
 
@@ -30,11 +64,5 @@
 
 	</div>
 
-<script>
-
-
-
-
-</script>
 
 {% endblock %}

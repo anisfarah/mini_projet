@@ -30,11 +30,9 @@ class Employe implements UserInterface
     private $username;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="roles", type="string", length=35, nullable=false)
+     * @ORM\Column(type="json")
      */
-    private $roles;
+    private $roles = [];
 
     /**
      * @var string
@@ -48,6 +46,9 @@ class Employe implements UserInterface
         return $this->id;
     }
 
+    /**
+     * @see UserInterface
+     */
     public function getUsername(): ?string
     {
         return $this->username;
@@ -60,18 +61,28 @@ class Employe implements UserInterface
         return $this;
     }
 
-    public function getRoles(): ?string
+    /**
+     * @see UserInterface
+     */
+    public function getRoles(): ?array
     {
-        return $this->roles;
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+
+        return $roles;
     }
 
-    public function setRoles(string $roles): self
+    public function setRoles(array $roles): self
     {
         $this->roles = $roles;
 
         return $this;
     }
 
+
+    /**
+     * @see UserInterface
+     */
     public function getPassword(): ?string
     {
         return $this->password;
@@ -82,6 +93,12 @@ class Employe implements UserInterface
         $this->password = $password;
 
         return $this;
+    }
+
+    
+    public function isGranted($role)
+    {
+        return in_array($role, $this->getRoles());
     }
 
     /**

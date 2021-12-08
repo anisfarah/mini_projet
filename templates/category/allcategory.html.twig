@@ -1,52 +1,61 @@
-<div class="wrapper">
-	{% for label,messages in app.flashes %}
-		{% for message in messages %}
-			<div class="alert alert-{{label}}" role="alert">
-				{{ message}}
+{% extends 'base.html.twig' %}
+{% block body %}
+	<div class="wrapper">
+		{% for label,messages in app.flashes %}
+			{% for message in messages %}
+				<div class="alert alert-{{label}}" role="alert">
+					{{ message}}
 
-				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
 
+				</div>
 			</div>
-		</div>
-	{% endfor %}
-{% endfor %}
-
-
-<a href="{{ path('add_category') }}" class="btn w-sm btn-danger remove_item">
-
-	Add Cateory</a>
-
-<table id="datatable-buttons" class="table table table-hover m-0">
-
-	<tr>
-		<th>Id_Category</th>
-		<th>Name</th>
-		<th>action</th>
-
-	</tr>
-
-	<tr>
-		{% for cat in allCat %}
-
-
-			<td>{{cat.idCategorie}}</td>
-			<td>{{cat.nomCategorie}}</td>
-			<td>
-				<a href="{{ path('supp_category',{'id':cat.idCategorie}) }}" class="btn w-sm btn-danger remove_item">
-
-					Delete</a>
-
-				<a href="{{ path('modify_category',{'id':cat.idCategorie}) }}" class="btn w-sm btn-danger remove_item">
-
-					Modify</a>
-
-
-			</td>
-
-		</tr>
-
+		{% endfor %}
 	{% endfor %}
 
-</table>
+	<div class="container">
+
+
+		<a href="{{ path('add_category') }}" class="btn btn-outline-success" style="margin-top:30px">
+
+			Add Cateory</a>
+
+		<table id="datatable-buttons" class="table table table-hover m-0">
+
+			<tr>
+				<th>Id_Category</th>
+				<th>Name</th>
+				<th>action</th>
+
+			</tr>
+
+			<tr>
+				{% for cat in allCat %}
+
+
+					<td>{{cat.idCategorie}}</td>
+					<td>{{cat.nomCategorie}}</td>
+					<td>
+						<a href="{{ path('supp_category',{'id':cat.idCategorie}) }}" class="btn btn-outline-success">
+
+							Delete</a>
+
+						<a href="{{ path('modify_category',{'id':cat.idCategorie}) }}" class="btn btn-outline-success">
+
+							Modify</a>
+
+
+					</td>
+
+				</tr>
+
+			{% endfor %}
+
+		</table>
+	</div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+
+
+{% endblock %}

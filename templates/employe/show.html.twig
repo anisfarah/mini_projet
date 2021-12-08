@@ -1,34 +1,45 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Employe{% endblock %}
+{% block title %}Employe
+{% endblock %}
 
 {% block body %}
-    <h1>Employe</h1>
+	<div class="container" style="margin-top:25px">
+	<h4 style="width:50%;margin:auto">Details caissier</h4>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ employe.id }}</td>
-            </tr>
-            <tr>
-                <th>Username</th>
-                <td>{{ employe.username }}</td>
-            </tr>
-            <tr>
-                <th>Roles</th>
-                <td>{{ employe.roles ? employe.roles|json_encode : '' }}</td>
-            </tr>
-            <tr>
-                <th>Password</th>
-                <td>{{ employe.password }}</td>
-            </tr>
-        </tbody>
-    </table>
+		<table class="table" style="width:50%;margin:auto">
+			<tbody>
+				<tr>
+					<th>Id</th>
+					<td>{{ employe.id }}</td>
+				</tr>
+				<tr>
+					<th>Username</th>
+					<td>{{ employe.username }}</td>
+				</tr>
+				<tr>
+					<th>Roles</th>
+                    {% for role in employe.roles  %}
+							<td>
+								{% if role == "ROLE_SERVEUR" %}
 
-    <a href="{{ path('employe_index') }}">back to list</a>
+									serveur
 
-    <a href="{{ path('employe_edit', {'id': employe.id}) }}">edit</a>
+								{% elseif role == "ROLE_CAISSIER" %}
+									caissier
+								{% else %}
+									admin
 
-    {{ include('employe/_delete_form.html.twig') }}
+								{% endif %}
+							</td>
+						{% endfor %}
+				</tr>
+
+			</tbody>
+		</table>
+
+
+		<a href="{{ path('employe_index') }}"  style="margin:auto;margin-left:25%" class="btn btn-outline-primary">back to list</a>
+
+	</div>
 {% endblock %}

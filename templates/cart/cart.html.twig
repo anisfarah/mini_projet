@@ -125,7 +125,7 @@
 					
 				<form method="post" action="{{ path('cart_delete_all',{'numTable':numTable}) }}">
 
-					<button type="button" class="btn btn-outline-primary">Annulation</button>
+					<button type="submit" class="btn btn-outline-primary">Annulation</button>
 					<input name="tot" type="number" value="{{total}}" hidden>
 				<a href="{{path("cmd_confirmer",{'numTable':numTable})}}" style="width:85px" class="btn btn-outline-primary">
 					Passer

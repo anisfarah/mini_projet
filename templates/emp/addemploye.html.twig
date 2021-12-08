@@ -1,0 +1,41 @@
+{% extends 'baseC.html.twig' %}
+
+{% block title %}Ajouter employé{% endblock %}
+
+{% block body %}
+<style> 
+    #cont{
+        width:80%;
+    }      
+</style>
+
+<body>
+<br/>
+<div id="cont" class="card border-primary container"><br>
+  <div class="card-header"><h5>Employé</h5></div>
+  <div class="card-body">
+    <form style="margin-top:-30px" method="post" action="{{ path('add_emp') }}">
+        <div class="form-group">
+            <label for="user" class="form-label mt-4">Nom d'utilisateur</label>
+            <input type="text" name="username" class="form-control" id="user" placeholder="Nom d'utilisateur">
+        </div>
+        <div class="form-group">
+            <label for="pwd" class="form-label mt-4">Mot de passe</label>
+            <input type="password" name="password" class="form-control" id="pwd" placeholder="Entrez le mot de passe">
+        </div>
+        <div class="form-group">
+            <label for="role" class="form-label mt-4">Rôle</label>
+            <select class="form-select" id="slc" name="roles">
+               <option value="ROLE_SERVEUR">Serveur
+			</option>
+			<option value="ROLE_CAISSIER">Caissier</option>
+            </select>        
+        </div>
+        <br/>
+        <div style="text-align:center"><button type="submit" class="btn btn-primary">Ajouter</button></div>
+    </form>
+  </div>
+</div>
+</body>
+
+{% endblock %}

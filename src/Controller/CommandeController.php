@@ -35,7 +35,7 @@ class CommandeController extends AbstractController
     public function factures(): Response
     {
         $cmd = $this->getDoctrine()->getRepository('App:Commande')->findAll();
-
+        
 
         return $this->render('commande/factures.html.twig',['cmd'=>$cmd]
              );
@@ -122,6 +122,7 @@ class CommandeController extends AbstractController
         $total = 0;
         $panier = $session->get($numTable, []);
 
+
         foreach ($panier as $id => $quantite) {
             $product = $this->getDoctrine()->getRepository(Produit::class)->find($id);
 
@@ -141,6 +142,7 @@ class CommandeController extends AbstractController
      */
     public function Retourpanier($numTable): Response
     {
+    
 
         return $this->redirectToRoute('ProduitBytable', ['numTable' => $numTable]);
     }
@@ -154,13 +156,20 @@ class CommandeController extends AbstractController
         $commande = new Commande();
         $Tables = $this->getDoctrine()->getRepository(Tables::class)->find($numTable);
         // a modifier
-        $Emp = $this->getDoctrine()->getRepository(Employe::class)->find(10);
+        $Emp = $this->getDoctrine()->getRepository(Employe::class)->find($this->getUser()->getId());  
+        
+
+       // $user = $this->get('security.token_storage')->getToken()->getUser();
+      
+
         $date = new \DateTime('@' . strtotime('now'));
 
         $commande->setDateCmd($date);
-        $commande->setPrixTot((float) $request->get('tot'));
+        $commande->setPrixTot((float) $request->get('tot')); 
         $commande->setEmploye($Emp);
         $commande->setNumTable($Tables);
+        $Tables->setDisponibilite(1);
+
 
         $panier = $session->get($numTable, []);
 
@@ -171,6 +180,7 @@ class CommandeController extends AbstractController
 
         $em = $this->getDoctrine()->getManager();
         $em->persist($commande);
+        $em->persist($Tables);
         $em->flush();
 
         $session->remove($numTable);

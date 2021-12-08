@@ -1,19 +1,44 @@
-<form method="post" action="{{ path('Postadd_Souscat') }}">
+{% extends 'baseC.html.twig' %}
 
+{% block title %}Ajouter sous catègorie
+{% endblock %}
 
-	<div>
-		<label>name_souscategorie</label>
-		<input type="text" name="sousCat_name" placeholder="Description">
-		<label>Categorie</label>
-		<select name="liscat">
-			{% for cat in allCat %}
-				<option value="{{cat.idCategorie}}">{{cat.nomCategorie}}</option>
-			{% endfor %}
-		</select>
-	</div>
+{% block body %}
+	<style>
+		#cont {
+			width: 80%;
+		}
+	</style>
 
+	<body>
+		<br/>
+		<div id="cont" class="card border-warning container"><br>
+			<div class="card-header">
+				<h5>Ajouter sous catégorie</h5>
+			</div>
+			<div class="card-body">
+				<form style="margin-top:-30px" method="post" action="{{ path('Postadd_Souscat') }}">
+					<div class="form-group">
+						<label for="id" class="form-label mt-4">Nom</label>
+						<input class="form-control" name="sousCat_name" id="id" placeholder="Entrez la sous catègorie">
+					</div>
+					<div class="form-group">
+						<label for="role" class="form-label mt-4">Catègorie</label>
+						<select class="form-select" id="slc" name="liscat">
+							{% for cat in allCat %}
+								<option value="{{cat.idCategorie}}">
+									{{cat.nomCategorie}}</option>
 
-	<button type="submit" class="btn btn-info waves-effect w-md waves-light m-b-20">Add</button>
+							{% endfor %}
+						</select>
+					</div>
+					<br/>
+					<div style="text-align:center">
+						<button type="submit" class="btn btn-warning">Ajouter</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</body>
 
-
-</form>
+{% endblock %}
