@@ -106,7 +106,7 @@
 		{% for prod in produits %}
 			<a href="{{ path('cart_add',{'id':prod.idProduit,'numTable':numTable}) }}">
 				<div class="btn btn-outline-primary">
-					<img src="{{prod.image}}" style="width:160px;height:160px"/>
+					<img src="{{ asset('assets/images/') }}{{prod.image}}" style="width:160px;height:160px"/>
 					<p>{{prod.nomProd}}</p>
 					<p>prix :
 						{{prod.pu}}</p>

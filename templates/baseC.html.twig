@@ -18,11 +18,17 @@
 		{% block javascripts %}
 			{#{{ encore_entry_script_tags('app') }}#}
 		{% endblock %}
+<style>
+ body {
+	 background-color:#1c1e21;
+ } 
+</style>
+
 	</head>
 	<body>
-		<nav class="navbar navbar-expand-lg navbar-dark bg-dark" >
+		<nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#1c1e21">
 			<div class="container-fluid">
-				<a class="navbar-brand" href="{{ path('home_caisse') }}"><img style="height:60px;opacity:0.6;background-color:black" src="https://comita.halber.space/storage/images/places/logos/eSbOcWi3CcN4I7UFrLl8pKhEMC74DU6dDLGvU9Jz.jpg" ></a>
+				<a class="navbar-brand" href="{{ path('home_caisse') }}"><img style="height:80px;background-color:#1c1e21" src="https://cdn.discordapp.com/attachments/902620158663733333/918207370134429776/logo.png" ></a>
 				<div class="collapse navbar-collapse" id="navbarColor02">
 					<ul class="navbar-nav me-auto">
 						<li class="nav-item" style="margin-left:200px">

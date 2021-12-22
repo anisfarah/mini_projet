@@ -80,13 +80,16 @@ class EmpController extends AbstractController
         $emp->setPassword($encoded);
         $tab = [];
         $roles = $request->get('roles');
+      
         array_push($tab, $roles);
+        
         $emp->setRoles($tab);
+        
         $em = $this->getDoctrine()->getManager();
         $em->persist($emp);
         $em->flush();
 
-        return $this->render('emp/editemp.html.twig', ['emp'=>$emp]);
+        return $this->redirectToRoute('employe_index');
     }
 
 

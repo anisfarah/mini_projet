@@ -20,12 +20,11 @@
 
 	<div class="wrapper">
 		{% for flashMessage in app.session.flashbag.get('noticebar') %}
-			<div class="alert alert-info" role="noticebar">
+			<div class="alert alert-info" role="noticebar" id="bar">
 
 				{{ flashMessage }}
-				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
+
+
 			</div>
 
 
@@ -59,6 +58,21 @@
 				</table>
 			</div>
 		</div>
-
 	</div>
+
+	<script>
+
+
+		const alert = document.querySelectorAll("div.alert");
+if (alert) {
+alert.forEach(function (alertItem) {
+alertItem.style.display = "block";
+setTimeout(function () {
+alertItem.style.display = "none";
+}, 3500);
+});
+
+}
+	</script>
+
 {% endblock %}

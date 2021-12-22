@@ -1,81 +1,77 @@
-
-
 {% extends 'baseC.html.twig' %}
 
-{% block title %}Ajouter produit{% endblock %}
+{% block title %}Ajouter produit
+{% endblock %}
 
 {% block body %}
-<style> 
-    #cont{
-        width:80%;
-    }      
-</style>
-<script>
-function allowDrop(ev) {
-  ev.preventDefault();
+	<style>
+		#cont {
+			width: 80%;
+		}
+	</style>
+	<script>
+		function allowDrop(ev) {
+ev.preventDefault();
 }
 
 function drag(ev) {
-  ev.dataTransfer.setData("text", ev.target.id);
+ev.dataTransfer.setData("text", ev.target.id);
 }
 
 function drop(ev) {
-  ev.preventDefault();
-  var data = ev.dataTransfer.getData("text");
-  ev.target.appendChild(document.getElementById(data));
+ev.preventDefault();
+var data = ev.dataTransfer.getData("text");
+ev.target.appendChild(document.getElementById(data));
 }
-</script>
+	</script>
 
-<body>
-<br/>
-<div id="cont" class="card border-secondary container"><br>
-  <div class="card-header"><h5>Produit</h5></div>
-  <div class="card-body">
-    <form style="margin-top:-30px" method="post" action="{{ path('Postadd_prod') }}">
-    <div class="row">
-    <div class="col-8">
-        <div class="form-group">
-            <label for="id" class="form-label mt-4">Nom</label>
-            <input type="text" name="sousCat_name" class="form-control" id="id" placeholder="Entrez le nom">
-        </div>
-        <div class="form-group">
-            <label for="prix" class="form-label mt-4">Prix</label>
-            <input type="number"  name="prod_px" class="form-control" id="prix" placeholder="Entrez le prix">
-        </div>
-        <div class="form-group">
-            <label for="remise" class="form-label mt-4">Remise</label>
-            <input type="number" name="prod_remise" class="form-control" id="remise" placeholder="Entrez la remise">
-        </div>
-        <div class="form-group">
-            <label for="cat" class="form-label mt-4">Sous Categorie</label>
+	<body>
+		<br/>
+		<div id="cont" class="card border-secondary container"><br>
+			<div class="card-header">
+				<h5>Produit</h5>
+			</div>
+			<div class="card-body">
+				<form style="margin-top:-30px" method="post" action="{{ path('Postadd_prod') }}">
+					<div class="row">
+						<div class="col-8">
+							<div class="form-group">
+								<label for="id" class="form-label mt-4">Nom</label>
+								<input type="text" name="sousCat_name" class="form-control" id="id" placeholder="Entrez le nom">
+							</div>
+							<div class="form-group">
+								<label for="prix" class="form-label mt-4">Prix</label>
+								<input type="number" name="prod_px" class="form-control" id="prix" placeholder="Entrez le prix">
+							</div>
+							<div class="form-group">
+								<label for="remise" class="form-label mt-4">Remise</label>
+								<input type="number" name="prod_remise" class="form-control" id="remise" placeholder="Entrez la remise">
+							</div>
+							<div class="form-group">
+								<label for="cat" class="form-label mt-4">Sous Categorie</label>
 
-            <select class="form-select" id="slc" name="lissouscat">
-						               {% for souscat in allsousCat %}
+								<select class="form-select" id="slc" name="lissouscat">
+									{% for souscat in allsousCat %}
 
-				<option value="{{souscat.idSouscat}}">{{souscat.nomSouscat}}</option>
-										{% endfor %}
+										<option value="{{souscat.idSouscat}}">{{souscat.nomSouscat}}</option>
+									{% endfor %}
 
-            </select>      
- 
-        </div>
-        <br/>
-    </div>
-    <div class="col-4" style="border: 1px solid grey;padding:5px 5px 5px;text-align:center" ondrop="drop(event)" ondragover="allowDrop(event)">
-        
-    </div>
-    <label for="myfile">het taswira :</label>
-<input type="file" id="myfile" name="myfile">
-    </div> 
-    <div style="text-align:center"><button type="submit" class="btn btn-secondary">Ajouter</button></div>
-    </form>
-  </div>
-</div>
-    <div class="col-1"> <img id="image" draggable="true" ondragstart="drag(event)" width="100%" height="100%" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKglaR6seIZ52R2pWWn-zK19or1bi8qapfZfhe5QMZSO9qcPqQCxDGOqTILDnf1BnR3iE&usqp=CAU"></div>
+								</select>
 
-{# <script>
-    alert( document.getElementById("image").src) ;
-</script> #}
-</body>
+							</div>
+							<br/>
+						</div>
+						<label for="myfile">Image</label>
+						<input type="file" id="myfile" name="myfile" onclick="drag()" >
+					</div>
+					<div style="text-align:center">
+						<button type="submit" class="btn btn-secondary">Ajouter</button>
+					</div>
+				</form>
+			</div>
+
+		</body>
 
 
-{% endblock %}
+
+	{% endblock %}

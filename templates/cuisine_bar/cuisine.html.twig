@@ -18,20 +18,14 @@
 
 	<div class="wrapper">
 		{% for flashMessage in app.session.flashbag.get('notice') %}
-			<div class="alert alert-success alert-dismissible fade show" role="alert">
+			<div class="alert alert-success alert-dismissible fade show" id="cuisine" role="alert">
 
 				{{ flashMessage }}
-				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
+
 			</div>
 
 		{% endfor %}
 	</div>
-
-
-
-
 
 
 	<div class="card border-primary mb-3" style="width:27rem;">
@@ -63,6 +57,20 @@
 		</div>
 
 	</div>
+
+	<script>
+
+		const alert = document.querySelectorAll("div.alert");
+if (alert) {
+alert.forEach(function (alertItem) {
+alertItem.style.display = "block";
+setTimeout(function () {
+alertItem.style.display = "none";
+}, 3500);
+});
+
+}
+	</script>
 
 
 {% endblock %}

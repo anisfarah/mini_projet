@@ -94,7 +94,9 @@ class ProduitController extends AbstractController
         
         $em=$this->getDoctrine()->getManager();
         $produit->setNomProd($request->get('prod_name'));
-        $produit->setImage($request->get('myfile'));
+         if ($request->get('myfile') != null){
+            $produit->setImage($request->get('myfile'));
+         }
         $produit->setPu($request->get('prod_px'));
         $produit->setRemise($request->get('prod_remise'));
         $produit->setSousCategorie($souscategorie);
